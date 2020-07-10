@@ -7,7 +7,7 @@ import scrape_covid
 app = Flask(__name__)
 
 # Set up a Mongo connection
-mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_app")
+mongo = PyMongo(app, uri="mongodb://localhost:27017/covid_app")
 
 # Create route that renders index.html template
 @app.route("/")

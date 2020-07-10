@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup as bs
 import requests
 from splinter import Browser
 import os
-import pandas as pd
 import time
 
 def init_browser():
@@ -86,4 +85,6 @@ def scrape_data():
     covid_data["actives"] = actives
     covid_data["recovered"] = recovered
 
+    browser.quit()
+    
     return covid_data
