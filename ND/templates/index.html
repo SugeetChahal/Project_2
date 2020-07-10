@@ -6,9 +6,18 @@
     <title>COVID Data</title>
 </head>
 <body>
-    <p>Hi</p>
-    {% for x in covid_data %}
-    <h3>{{ x }}</h3>
-    {% endfor %}
+    <!-- <p>Hi</p> -->
+    <div class="container">
+        <div class="jumbotron text-center">
+          <h1>{{ text }}</h1>
+          <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape COVID Data</a></p>
+        </div>
+        {% for data in covid_data %}
+        <p>{{ data.states }}</p>
+        <p>{{ data.cases }}</p>
+        <p>{{ data.actives }}</p>
+        <p>{{ data.recovered }}</p>
+        {% endfor %}
+    </div>
 </body>
 </html>

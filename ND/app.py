@@ -20,7 +20,7 @@ def scrape():
     #Scrape for COVID data
     covid_data = mongo.db.covid_data
     covid_scrape_data = scrape_covid.scrape_data()
-    covid_data.updated({}, covid_scrape_data, upsert=True)
+    covid_data.update({}, covid_scrape_data, upsert=True)
 
     return redirect("/", code=302)
 
