@@ -16,7 +16,11 @@ var myMap = L.map("map", {
 
 d3.json(url, function(response) {
 
+<<<<<<< HEAD
   // console.log(response);
+=======
+  console.log(response);
+>>>>>>> SC
 
   var heatArray = [];
 
