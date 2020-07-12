@@ -9,18 +9,18 @@ var myMap = L.map("map", {
     maxZoom: 18,
     zoomOffset: -1,
     id: "mapbox/streets-v11",
-    accessToken: API_KEY
+    accessToken: "pk.eyJ1Ijoia2hhbGVka2FybWFuIiwiYSI6ImNqbXNhejNxYzAxdjczd216eHRuYzJza28ifQ.PdkNYGf3m8txl_r1sLebKw"
   }).addTo(myMap);
 
   var url = "https://data.sfgov.org/resource/cuks-n6tp.json?$limit=10000";
 
 d3.json(url, function(response) {
 
-<<<<<<< HEAD
+
   // console.log(response);
-=======
+
   console.log(response);
->>>>>>> SC
+
 
   var heatArray = [];
 
