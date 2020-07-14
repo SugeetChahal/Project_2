@@ -82,6 +82,7 @@ def scrape_data():
     # Store data to return
     covid_data["states"] = states
     covid_data["cases"] = cases
+    covid_data["deaths"] = deaths
     covid_data["actives"] = actives
     covid_data["recovered"] = recovered
 
