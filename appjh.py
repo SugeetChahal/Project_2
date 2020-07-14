@@ -19,7 +19,7 @@ app = Flask(__name__, template_folder=templateDir)
 
 @app.route("/")
 def index(): 
-    return render_template("index.html")
+    return render_template("race.html")
 
 @app.route("/covid")
 def getCovidCases(): 
@@ -30,15 +30,15 @@ def getCovidCases():
             {
                 "State": row[1],
                 "statics": [
-                    {"race": "white", "case": row[5]},
-                    {"race": "black", "case": row[6]},
-                    {"race": "latin", "case": row[7]},
-                    {"race": "asian", "case": row[8]},
-                    {"race": "aian", "case": row[9]},
-                    {"race": "nhpi", "case": row[10]},
-                    {"race": "multiracial", "case": row[11]},
-                    {"race": "other", "case": row[12]},
-                    {"race": "unknown", "case": row[13]}
+                    {"race": "White", "case": row[5]},
+                    {"race": "Black", "case": row[6]},
+                    {"race": "Latin", "case": row[7]},
+                    {"race": "Asian", "case": row[8]},
+                    {"race": "AIAN", "case": row[9]},
+                    {"race": "NHPI", "case": row[10]},
+                    {"race": "Multiracial", "case": row[11]},
+                    {"race": "Other", "case": row[12]},
+                    {"race": "Unknown", "case": row[13]}
                 ]
             })
     res = {
