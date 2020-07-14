@@ -4,38 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COVID Data</title>
+    <!-- Boot Strap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/css/style.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="static/style.css">
+
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <script src="jquery-3.5.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Chartist -->
+    <link href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
+    <!-- <link rel="stylesheet" href="static/chartist-plugin-axistitle.js"> -->
+
+    <!-- JS -->
+    <script src="{{url_for('static', filename='nd.js')}}"></script>
+
     <script>
         // jQuery
         $(document).ready(function() {
-            $("button").click(function() {
+            $(".hide").click(function() {
                 $(".scrape").hide();
                 $(this).hide();
             });
         });
     </script>
+    <script>
+        
+    </script>
 </head>
 <body>
     <div class="scrape container">
         <div class="jumbotron text-center">
-          <h1>Scrape Updated Data!</h1>
+          <h1>Scrape Updated Covid Data!</h1>
           <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape COVID Data</a></p>
           <p><a class="btn btn-primary btn-lg" href="/covidjson">View Data</a></p>
-          <!-- <p><button class="btn btn-primary btn-lg" onclick="showGraph()" role="button">View Data</button></p> -->
+          <!-- <div onload="showGraph()"></div> -->
         </div>
     </div>
-    <button>Hide the Scrape interface after scraping!</button>
-    <div id="graph">
-        <!-- <p>THE GRAPH</p> -->
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <button class="hide">Hide the Scrape interface after scraping!</button>
+    <!-- <button class="chartButton" id="cases">Cases</button> -->
+    <!-- <button class="chartButton" id="deaths">Deaths</button> -->
+    <!-- <button class="chartButton" id="actives">Active Cases</button> -->
+    <!-- <button class="chartButton" id="recovered">Recovered Cases</button> -->
+    <div id="nemo" class="ct-chart-bar ct-golden-section"></div>
+    <!-- <div id="nemo" class="ct-perfect-fourth"></div> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-    <script type="text/javascript" src="static/js/app.js"></script>
+
+    <!-- Chartist -->
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="static/chartist-plugin-legend.js"></script>
 </body>
 </html>

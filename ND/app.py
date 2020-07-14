@@ -14,19 +14,36 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/covid_app")
 def home():
     # Create a variable for the connection to mongo
     covid_data = mongo.db.covid_data.find_one()
-    return render_template("index.html", text="COVID Data", covid_data=covid_data)
+    # Create a dictionary to save all the cleaned data; removes the id:object
+    clean_data = {}
+    for x in covid_data:
+        if x != "_id":
+            clean_data[x] = covid_data[x]
+    # clean_data = jsonify(clean_data)
+    print(clean_data)
+    return render_template("index.html", text="COVID Data", clean_data=clean_data)
 
 
 @app.route("/covidjson")
 def covidjson():
     covid_data = mongo.db.covid_data.find_one()
     # Create a dictionary to save all the cleaned data; removes the id:object
+    covid_data2 = {}
+    for i in range(len(covid_data["states"])):
+        covid_data2[f"{i}"] = {
+            "states": covid_data["states"][i],
+            "cases": covid_data["cases"][i],
+            "deaths": covid_data["deaths"][i],
+            "actives": covid_data["actives"][i],
+            "recovered": covid_data["recovered"][i]
+        }
     clean_data = {}
-    for x in covid_data:
+    for x in covid_data2:
         if x != "_id":
-            clean_data[x] = covid_data[x]
+            clean_data[x] = covid_data2[x]
     print(clean_data)
-    return jsonify(clean_data)
+    # return jsonify(clean_data)
+    return clean_data
 
 # Scrapes the data and saves to MongoDB; commented out when it's done
 @app.route("/scrape")
