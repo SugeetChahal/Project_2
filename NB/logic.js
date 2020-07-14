@@ -8,86 +8,26 @@ d3.json(queryUrl).then(function(data) {
   createFeatures(data.features);
 });
 
-
-// // Define a markerSize function that will give each city a different radius based on its cordinate
-// function markerSize(state_name) {
-//   return state_name / 50;
-// }
-
-// // Each city object contains the city's name, location and population
-// var state= [
-//   {
-//     name: "Alabama",
-//     coordinates: [ -86.146225, 33.702176],
-//     "max": 750.0
-//   },
-//   {
-//     name: "Alaska",
-//     coordinates: [179.48246426294082, 51.982841979897614 ],
-//     "max": 100.0,
-//   },
-//   {
-//     name: "Arizona",
-//     coordinates: [ -113.334161, 35.528037 ],
-//     "max": 2000.0,
-//   },
-//   {
-//     name: "Arkansas",
-//     coordinate: [ -93.075071, 34.801271 ],
-//     "max": 750.0,
-//   },
-//   {
-//     name: "California",
-//     coordinates: [-123.891874, 40.001538 ],
-//     "max": 2000.0,
-//   }
-// ];
-
-// // Loop through the cities array and create one marker for each state object
-// for (var i = 0; i < state.length; i++) {
-//   L.circle(state.coordinates, {
-//     fillOpacity: 0.75,
-//     color: "white",
-//     fillColor: "purple",
-//     // Setting our circle's radius equal to the output of our markerSize function
-//     // This will make our marker's size proportionate to its population
-//     radius: markerSize(state[i].max)
-//   }).bindPopup("<h1>" + state[i].name + "</h1> <hr> <h3>coordinates: " + state[i].max+ "</h3>").addTo(myMap);
-// }
-
-// function chooseColor(lodes_job_change_public) {
-//   if (lodes_job_change_public=== "Van Buren County") {
-//     color = "black"
-//   }
-//   else {
-//     color = "white"
-//   }
-//   return color;
-// };
-
-// function getColor(county_name) {
-//   return county_name > 1000 ? '#800026' :
-//          county_name > 500  ? '#BD0026' :
-//          county_name> 200  ? '#E31A1C' :
-//          county_name > 100  ? '#FC4E2A' :
-//          county_name > 50   ? '#FD8D3C' :
-//          county_name > 20   ? '#FEB24C' :
-//          county_name > 10   ? '#FED976' :
-//                     '#FFEDA0';
-// }
-// console.log();
-
-//function myStyle(feature) {
- // "fillColor" = chooseColor(feature.properties.state_name),
-//}
+function chooseColor(jobs) {
+   var color;
+  if (jobs > 1000) {
+    color = "green"
+  } else if(jobs > 500) {
+    color = "blue"
+  }
+  else {
+    color = "red"
+  }
+  return color;
+};
 
 function createFeatures(sum_job_loss_county) {
 
   // Define a function we want to run once for each feature in the features array
   // Give each feature a popup describing the place and time of the earthquake
   function addDetails(feature, layer) {
-    layer.bindPopup("<h3><a target='_blank' href='" + feature.properties.url +"'>Click here</a><hr> "+ feature.properties.county_name +
-      "</h3><hr><p>" + (feature.properties.X000) + "</p>");
+    layer.bindPopup( feature.properties.county_name +
+      "</h3><hr><p> Number of Unemployment: " + (feature.properties.X000) + "</p>");
   }
 
   // Create a GeoJSON layer containing the features array on the job_change object
@@ -96,12 +36,11 @@ function createFeatures(sum_job_loss_county) {
     onEachFeature: addDetails, 
     style: function(feature,layer) {
       return {
-    //     fillcolor: chooseColor(feature.properties.lodes_job_change_public),
-    //   weight: 1,
-    //   opacity: 1,
-    //     color: '',
-    //     dashArray: '3',
-    //     fillOpacity: 0.7
+        color: chooseColor(feature.properties.X000),
+      weight: 1,
+      opacity: 1,
+        dashArray: '3',
+        fillOpacity: 0.7
       }
     }
       
@@ -159,26 +98,50 @@ function createMap(sum_job_loss_county) {
     collapsed: false
   }).addTo(myMap);}
 
-  // // Create a new choropleth layer
-  // geojson = L.choropleth(featureCollection, {
+  // var legend = L.control({position: 'bottomright'});
+  //   legend.onAdd = function (map) {
 
-  //   // Define what  property in the features to use
-  //   valueProperty: "X000",
+  //   var div = L.DomUtil.create('div', 'info legend');
+  //   labels = ['<b> Number of Unemployment</b>'],
+  //   NumberOfUnemployment= ['0-399', "400-999", "1000+"];
 
-  //   // Set color scale
-  //   scale: ["#ffffb2", "#b10026"],
+  //   for (var i = 0; i < NumberOfUmenployment.length; i++) {
+  //           div.innerHTML += 
+  //           labels.push(
+  //               '<i style="background:' + getColor(NumberOfUmenployment[i] + 1) + '"></i> ' +
+  //               (NumberOfUnemployment[i] ? NumberOfUnemployment[i] : '+'));
+  //       }
 
-  //   // Number of breaks in step range
-  //   steps: 20,
+  //       div.innerHTML = labels.join('<br>');
+  //   return div;
+// };
 
-  //   // q for quartile, e for equidistant, k for k-means
-  //   state_name: "rate",
-  //   style: {
-  //     // Border color
-  //     color: "#fff",
-  //     weight: 1,
-  //     fillOpacity: 0.5,
-  //   }
-  // })
+function getColor(value) {
+  return value > 1000 ? 'red' :
+      value > 500  ? '#yellow' :
+                  '#green' ;
+}
+
+// Add the legend
+var legend = L.control({
+  position: "bottomright"
+});
+legend.onAdd = function(myMap) {
+  var div = L.DomUtil.create("div", "legend"),
+  grades = [0, 500, 1000],
+  labels = [],
+  from, to;
+  for (var i = 0; i < grades.length; i++) {
+      from = grades[i];
+      to = grades[i + 500];
+  labels.push(
+      '<i style="background:' + getColor(from + 1) + '">____</i> ' +
+      from + (to ? '&ndash;' + to : '+'));
+  }
+  div.innerHTML = labels.join('<br>');
+  return div;
+};
+legend.addTo(myMap);
+
 
   
