@@ -12,6 +12,7 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/covid_app")
 # Create route that renders index.html template
 @app.route("/")
 def home():
+    # Create a variable for the connection to mongo
     covid_data = mongo.db.covid_data.find_one()
     return render_template("index.html", text="COVID Data", covid_data=covid_data)
 
@@ -19,6 +20,7 @@ def home():
 @app.route("/covidjson")
 def covidjson():
     covid_data = mongo.db.covid_data.find_one()
+    # Create a dictionary to save all the cleaned data; removes the id:object
     clean_data = {}
     for x in covid_data:
         if x != "_id":
@@ -26,13 +28,14 @@ def covidjson():
     print(clean_data)
     return jsonify(clean_data)
 
-# @app.route("/scrape")
-# def scrape():
-#     #Scrape for COVID data
-#     covid_data = mongo.db.covid_data
-#     covid_scrape_data = scrape_covid.scrape_data()
-#     covid_data.update({}, covid_scrape_data, upsert=True)
-#     return redirect("/", code=302)
+# Scrapes the data and saves to MongoDB; commented out when it's done
+@app.route("/scrape")
+def scrape():
+    #Scrape for COVID data
+    covid_data = mongo.db.covid_data
+    covid_scrape_data = scrape_covid.scrape_data()
+    covid_data.update({}, covid_scrape_data, upsert=True)
+    return redirect("/", code=302)
 
 if __name__ == "__main__":
     app.run(debug=True)
