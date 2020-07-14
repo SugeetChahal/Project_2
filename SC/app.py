@@ -4,7 +4,12 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
 
+from flask import Flask, jsonify, render_template
 # 2. Create an app, being sure to pass __name__
 app = Flask(__name__)
 
