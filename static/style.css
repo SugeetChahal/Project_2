@@ -1,0 +1,21 @@
+
+
+.bar {
+    fill: darkblue;
+    opacity: 0.5;
+}
+
+/* .axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+} */
+#gragh {
+    display: inline-block;
+    margin: 0 auto;
+}
+.comment {
+    display: flex;
+    justify-content: center;
+  }
