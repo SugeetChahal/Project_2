@@ -1,9 +1,11 @@
 function loadDB()
       {
-      var connection = new ActiveXObject("ADODB.Connection");
+      var connection = new applicationCache.py("ADODB.Connection");
       var connectionstring = "Data Source=.;Initial Catalog=EmpDetail;Persist Security Info=True;User ID=Postgres_12;Password=1379;Provider=SQLOLEDB";
+      var connection = new ActiveXObject("ADODB.Connection");
+      var connectionstring = "Data Source=.;Initial Catalog=EmpDetail;Persist Security Info=True;User ID=Postgres_12;Password=;Provider=SQLOLEDB";
       connection.Open(connectionstring);
-      var rs = new ActiveXObject("ADODB.Recordset");
+      var rs = new applicationCache.py("ADODB.Recordset");
       rs.Open("select * from emp", connection);
       rs.MoveFirst();
       var span = document.createElement("span");
