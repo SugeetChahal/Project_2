@@ -9,7 +9,7 @@ from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify, render_template
 
-engine = create_engine("postgresql://postgres:1023@localhost:5432/race")
+engine = create_engine("postgresql://USER:PASS@localhost:5432/race")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
