@@ -21,7 +21,7 @@ def home():
             clean_data[x] = covid_data[x]
     # clean_data = jsonify(clean_data)
     print(clean_data)
-    return render_template("index.html", text="COVID Data", clean_data=clean_data)
+    return render_template("covidcases.html", text="COVID Data", clean_data=clean_data)
 
 
 @app.route("/covidjson")
