@@ -1,5 +1,5 @@
-var svgWidth = 600;
-var svgHeight = 400;
+var svgWidth = 800;
+var svgHeight = 600;
 var margin = { top: 100, right: 100, bottom: 100, left: 100 },
         width = svgWidth - margin.left - margin.right,
         height = svgHeight - margin.top - margin.bottom;
@@ -53,7 +53,7 @@ d3.json('/covid').then(data => {
             
         g.append("g") 
             .attr("class", "axis axis-y") 
-            .call(d3.axisLeft(y).ticks(20)); 
+            .call(d3.axisLeft(y).ticks(10)); 
     }
 
     unitMenu.on('change', function() {

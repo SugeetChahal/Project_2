@@ -9,7 +9,7 @@ from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify, render_template
 
-engine = create_engine("postgresql://USER:PASS@localhost:5432/race")
+engine = create_engine("postgresql://postgres:1023@localhost:5432/race")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
@@ -19,7 +19,16 @@ app = Flask(__name__, template_folder=templateDir)
 
 @app.route("/")
 def index(): 
+    return render_template("index.html")
+
+
+@app.route("/race")
+def race(): 
     return render_template("race.html")
+
+@app.route("/jobloss")
+def jobloss(): 
+    return render_template("jobloss.html")    
 
 @app.route("/covid")
 def getCovidCases(): 
